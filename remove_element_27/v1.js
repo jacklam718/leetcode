@@ -4,11 +4,9 @@
  * @return {number}
  */
 var removeElement = function(nums, val) {
-  while (true) {
-    const removeByIndex = nums.indexOf(val);
-    if (removeByIndex === -1) {
-      return;
-    }
-    nums.splice(nums.indexOf(val), 1);
+  let index = nums.indexOf(val);
+  if (index > -1) {
+    nums.splice(index, 1);
+    removeElement(nums, val);
   }
 };
