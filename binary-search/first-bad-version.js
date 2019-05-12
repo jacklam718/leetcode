@@ -23,11 +23,12 @@ var solution = function(isBadVersion) {
     let firstBadVersion = null;
     while (left <= right) {        
       const mid = ~~(left + right) / 2;
-      if (isBadVersion(mid) && (mid < firstBadVersion || firstBadVersion === null)) {
+      const badVersion = isBadVersion(mid);
+      if (badVersion && (mid < firstBadVersion || firstBadVersion === null)) {
         firstBadVersion = mid;
       }
       // to left else to right
-      if (isBadVersion(mid)) {
+      if (badVersion) {
         right = mid-1;
       } else {
         left = mid+1;
