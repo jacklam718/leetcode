@@ -22,7 +22,7 @@ var solution = function(isBadVersion) {
     let right = n;
     let firstBadVersion = null;
     while (left <= right) {        
-      const mid = ~~(left + right) / 2;
+      const mid = parseInt((left + right) / 2);
       const badVersion = isBadVersion(mid);
       if (badVersion && (mid < firstBadVersion || firstBadVersion === null)) {
         firstBadVersion = mid;
