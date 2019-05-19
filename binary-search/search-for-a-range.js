@@ -5,10 +5,6 @@
  */
 var searchRange = function(nums, target) {
   const start = searchLeft(nums, target);
-  // optimization
-  if (start === -1) {
-    return [-1, -1];
-  }
   const end = searchRight(nums, target);
   return [start, end];
 };
