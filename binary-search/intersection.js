@@ -4,12 +4,5 @@
  * @return {number[]}
  */
 var intersection = function(nums1, nums2) {
-  const result = [];
-  for (const val of nums1) {
-    if (!result.includes(val) && nums2.includes(val)) {
-      result.push(val);
-    }
-  }
-  result.filter()
-  return result;
+  return [...new Set(nums1.filter(n => nums2.includes(n)))];
 };
