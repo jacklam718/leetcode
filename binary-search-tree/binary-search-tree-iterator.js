@@ -8,8 +8,30 @@
 /**
  * @param {TreeNode} root
  */
-var BSTIterator = function(root) {
-  function *inorderGenerator(node) {
+class BSTIterator {
+  constructor(root) {
+    this.generator = inorderGenerator(root);
+  }
+
+  next() {
+    if (this.last) {
+      const last = this.last;
+      this.last = null;
+      return last.value;
+    }
+    const next = this.generator.next();
+    return next.value;
+  }
+
+  hasNext() {
+    if (!this.last) {
+      const next = this.generator.next();
+      this.last = next;
+    }
+    return !this.last.done;
+  }
+
+  *inorderGenerator() {
     const stack = [];
     while (node || stack.length) {
       while (node) {
@@ -21,35 +43,7 @@ var BSTIterator = function(root) {
       node = node.right;
     }
   }
-  this.generator = inorderGenerator(root);
-};
-
-/**
- * @return the next smallest number
- * @return {number}
- */
-BSTIterator.prototype.next = function() {
-  if (this.last) {
-    const last = this.last;
-    this.last = null;
-    return last.value;
-  }
-  const next = this.generator.next();
-  return next.value;
-  
-};
-
-/**
- * @return whether we have a next smallest number
- * @return {boolean}
- */
-BSTIterator.prototype.hasNext = function() {
-  if (!this.last) {
-    const next = this.generator.next();
-    this.last = next;
-  }
-  return !this.last.done;
-};
+}
 
 /** 
  * Your BSTIterator object will be instantiated and called as such:
