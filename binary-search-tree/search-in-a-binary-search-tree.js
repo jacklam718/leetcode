@@ -23,3 +23,17 @@ var searchBST = function(node, val) {
   }
   return null;
 };
+
+var searchBSTRecursively = function(node, val) {
+  if (!node) {
+    return null;
+  }
+  if (val === node.val) {
+    return node;
+  }
+  if (val > node.val) {
+    return searchBSTRecursively(node.right, val);
+  } else {
+    return searchBSTRecursively(node.left, val);
+  }
+};
