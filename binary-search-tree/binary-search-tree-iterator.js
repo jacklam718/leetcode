@@ -10,37 +10,25 @@
  */
 class BSTIterator {
   constructor(root) {
-    this.generator = inorderGenerator(root);
+    this.stack = [];  
+    this.pushAll(root);
   }
-
+  
   next() {
-    if (this.last) {
-      const last = this.last;
-      this.last = null;
-      return last.value;
-    }
-    const next = this.generator.next();
-    return next.value;
+    const node = this.stack.pop();
+    if (!node) return;
+    this.pushAll(node.right);
+    return node.value;
   }
-
+  
   hasNext() {
-    if (!this.last) {
-      const next = this.generator.next();
-      this.last = next;
-    }
-    return !this.last.done;
+    return this.stack.length > 0;
   }
-
-  *inorderGenerator() {
-    const stack = [];
-    while (node || stack.length) {
-      while (node) {
-        stack.push(node);
-        node = node.left;
-      }
-      node = stack.pop();
-      yield node.val;
-      node = node.right;
+  
+  pushAll(node) {
+    while (node) {
+      this.stack.push(node);
+      node = node.left;
     }
   }
 }
