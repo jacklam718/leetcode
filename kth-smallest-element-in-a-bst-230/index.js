@@ -12,17 +12,15 @@
  */
 var kthSmallest = function(node, k) {
   const stack = [];
-  let ranking = 1;
   while (node || stack.length) {
     while (node) {
       stack.push(node);
       node = node.left;
     }
     node = stack.pop();
-    if (ranking === k) {
+    if (k-- === 1) {
       return node.val;
     }
     node = node.right;
-    ranking++;
   }
 };
