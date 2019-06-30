@@ -10,13 +10,16 @@
  * @return {number[]}
  */
 var preorderTraversal = function(root) {
-  var recursive = function(node, result = []) {
-    if (node) {
-      result.push(node.val)
-      recursive(node.left, result) 
-      recursive(node.right, result) 
+  const stack = []
+  const result = []
+  while (root || stack.length) {
+    while (root) {
+      stack.push(root)
+      result.push(root.val)
+      root = root.left
     }
-    return result
+    root = stack.pop()
+    root = root.right
   }
-  return recursive(root)
+  return result
 };
