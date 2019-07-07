@@ -4,7 +4,6 @@
  */
 var MyCircularQueue = function(k) {
   this.maxSize = k;
-  this.size = 0;
   this.front = -1;
   this.rear = -1;
 };
@@ -18,11 +17,11 @@ MyCircularQueue.prototype.enQueue = function(value) {
   if (this.isFull()) {
     return false;
   }
-  this[++this.rear] = value;
-  this.size++;
-  if (this.front === -1) {
-    this.front = 0; 
+  if (this.isEmpty()) {
+    this.front = 0;
   }
+  this.rear = ((this.rear + 1) % this.maxSize)
+  this[this.rear] = value;
   return true;
 };
 
@@ -34,12 +33,13 @@ MyCircularQueue.prototype.deQueue = function() {
   if (this.isEmpty()) {
     return false;
   }
-  delete this[this.front++];
-  this.size--;
-  if (this.isEmpty()) {
+  delete this[this.front];
+  if (this.front === this.rear) {
     this.front = -1;
     this.rear = -1;
+    return true;
   }
+  this.front = ((this.front + 1) % this.maxSize)
   return true;
 };
 
@@ -70,7 +70,7 @@ MyCircularQueue.prototype.Rear = function() {
  * @return {boolean}
  */
 MyCircularQueue.prototype.isEmpty = function() {
-  return this.size === 0;
+  return this.front === -1;
 };
 
 /**
@@ -78,7 +78,7 @@ MyCircularQueue.prototype.isEmpty = function() {
  * @return {boolean}
  */
 MyCircularQueue.prototype.isFull = function() {
-  return this.size >= this.maxSize;
+  return ((this.rear + 1) % this.maxSize) === this.front;
 };
 
 /** 
